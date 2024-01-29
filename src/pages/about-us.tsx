@@ -29,13 +29,14 @@ export default function AboutUs() {
 
 const AboutUsDiv = styled.div`
     width: 100%;
-
+    min-height: calc(100vh - 104px - 72px);
     display: flex;
     flex-direction: column;
 `
 const BodyText = styled.div`
     width: 408px;
     height: auto;
+    min-height: 100%;
     margin: 34px auto 72px;
     color: var(--black);
 
