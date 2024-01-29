@@ -7,6 +7,8 @@ const GlobalCSS = createGlobalStyle`
         --white: #ffffff;
         --black: #000000;
         --lightblack: #1D1D1D;
+
+        --homeimage: url("/images/pokemon-hero.jpg");
     }
     
     * {
@@ -18,19 +20,11 @@ const GlobalCSS = createGlobalStyle`
 
     body {
         display: flex;
-        background-color: #E40F0F;
         flex-direction: column;
         min-height: 100vh;
-
+        
         position: relative; 
-        padding-top: 104px;
-        padding-bottom: 72px;
     }
-
-    main {
-        flex: 1;
-    }
-
 `
 
 export default GlobalCSS;
