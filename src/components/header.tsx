@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-interface HeaderProps {
-
-}
+interface HeaderProps {}
 
 export default function Header(props: HeaderProps) {
     const [seeLogo, setSeeLogo] = useState<boolean>(true);
@@ -59,8 +57,10 @@ const HeaderContainer = styled.header`
     justify-content: space-between;
     padding: 0 5.8%;
     background-color: var(--white);
-
     height: 104px;
+    width: 100%;
+    position: fixed;
+    top: 0;
 `
 const Logo = styled.a<{ seelogo: string }>`
     width: ${(props) => (props.seelogo === "true") ? "259px" : "62px"};
