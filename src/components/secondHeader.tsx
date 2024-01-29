@@ -46,7 +46,7 @@ const SecondHeaderContainer = styled.div`
     width: 100%;
     height: 187px;
     background-color: var(--red);
-    padding: 32px 106px;
+    padding: 32px 5.8%;
     gap: 12px;
 
     display: flex;
@@ -59,6 +59,7 @@ const Subpages = styled.div`
     font-weight: 300;
     font-size: 12px;
     line-height: 14.5px;
+    color: var(--white);
     h1{
         font-weight: 700;
         color: var(--white);

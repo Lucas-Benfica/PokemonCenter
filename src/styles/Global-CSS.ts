@@ -23,10 +23,8 @@ const GlobalCSS = createGlobalStyle`
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        height: 100%;
         padding-top: 104px;
-        padding-bottom: 72px;
-        
-        position: relative; 
     }
 `
 

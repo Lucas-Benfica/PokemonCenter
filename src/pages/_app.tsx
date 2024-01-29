@@ -9,14 +9,15 @@ const inter = Inter({
   subsets: ['latin']
 })
 
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={inter.className}>
+    <>
       <GlobalCSS />
       <Header />
-      <Component {...pageProps} />
+      <main className={inter.className}>
+        <Component {...pageProps} />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

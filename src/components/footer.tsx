@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-interface FooterProps {}
+interface FooterProps { }
 
 export default function Footer(props: FooterProps) {
     return (
@@ -22,6 +22,4 @@ const FooterContainer = styled.footer`
     font-weight: 400;
     line-height: 17px;
     margin-top: auto;
-    position: absolute;
-    bottom: 0;
 `
