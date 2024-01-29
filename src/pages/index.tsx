@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Footer from "../components/footer";
 
 export default function Home() {
   return (
@@ -8,14 +7,13 @@ export default function Home() {
         Cuidamos bem do seu pokémon,<br />
         para ele cuidar bem de você
       </h1>
-      <Footer />
     </HomeDiv>
   )
 }
 
 const HomeDiv = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 104px - 72px);
   padding-top: 104px;
   
   display: flex;
