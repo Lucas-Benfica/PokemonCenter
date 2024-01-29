@@ -14,7 +14,6 @@ export default function Home() {
 const HomeDiv = styled.div`
   width: 100%;
   height: calc(100vh - 104px - 72px);
-  padding-top: 104px;
   
   display: flex;
   align-items: center;

@@ -7,6 +7,7 @@ const GlobalCSS = createGlobalStyle`
         --white: #ffffff;
         --black: #000000;
         --lightblack: #1D1D1D;
+        --lightgray: #EEEEEE;
 
         --homeimage: url("/images/pokemon-hero.jpg");
     }
