@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PokemonSelect from "./pokemonSelect";
+const URL = process.env.NEXT_PUBLIC_API_LINK_2;
+const MAX_POKEMONS_PER_LOAD = 25;
 
 interface TeamRegistrationProps {
     pokemonTeam: { name: string }[];
@@ -9,12 +11,39 @@ interface TeamRegistrationProps {
 
 export default function TeamRegistration(props: TeamRegistrationProps) {
 
-    //const { allPokemons, setAllPokemons } = useState<any>();
     const { pokemonTeam, SetPokemonTeam } = props;
+    const [allPokemons, setAllPokemons] = useState<{name: string}[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [nextUrl, setNextUrl] = useState<string>();
 
     useEffect(() => {
-         
+        if(allPokemons.length === 0) {
+            getPokemon(`${URL}/pokemon?limit=${MAX_POKEMONS_PER_LOAD}`);
+        }
     }, [])
+
+    function getPokemon(url: string): void {
+        if(loading) return;
+        setLoading(true);
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const newPokemons = data.results.map((pokemon: { name: string }) => ({ name: pokemon.name }));
+                const updatedTeam = [...allPokemons, ...newPokemons];
+                setAllPokemons(updatedTeam);
+                setNextUrl(data.next);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar mais Pokémon:', error);
+                setLoading(false);
+            });
+    }
+    function getMorePokemon(): void {
+        if(allPokemons.length !== 0 && nextUrl){
+            getPokemon(nextUrl);
+        }
+    }
 
     function addPokemonSelect() {
         if (pokemonTeam.length === 6) return;
@@ -34,7 +63,11 @@ export default function TeamRegistration(props: TeamRegistrationProps) {
                 pokemonTeam.map((_pokemon, index) => (
                     <PokemonChoose key={index}>
                         <Title>Pokémon 0{index + 1}</Title>
-                        <PokemonSelect index={index} pokemonTeam={pokemonTeam} SetPokemonTeam={SetPokemonTeam} />
+                        <PokemonSelect 
+                            index={index} 
+                            pokemonTeam={pokemonTeam} SetPokemonTeam={SetPokemonTeam} 
+                            allPokemons={allPokemons} getMorePokemon={getMorePokemon}
+                        />
                     </PokemonChoose>
                 ))
             }

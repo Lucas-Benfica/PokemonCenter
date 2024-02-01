@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { FormSelect, Option, OptionList } from "./styles";
+import { Dispatch, SetStateAction } from 'react';
 
 interface PokemonSelectProps {
     index: number;
     pokemonTeam: { name: string }[];
-    SetPokemonTeam: any;
+    SetPokemonTeam:  Dispatch<SetStateAction<{ name: string }[] | undefined>>;
+    allPokemons: { name: string }[];
+    getMorePokemon: () => void;
 }
 
 export default function PokemonSelect(props: PokemonSelectProps){
 
-    const { index, pokemonTeam, SetPokemonTeam } = props;
+    const { index, pokemonTeam, SetPokemonTeam, allPokemons, getMorePokemon } = props;
 
     const [isOpen, setIsOpen] = useState(false);
 
     function updatePokemonTeam(newPokemon: string){
-        const newTeam = [...pokemonTeam];
+        const newTeam: { name: string }[]= [...pokemonTeam];
         newTeam[index] = { name: newPokemon };
         SetPokemonTeam(newTeam);
         setIsOpen(false);
@@ -32,10 +35,9 @@ export default function PokemonSelect(props: PokemonSelectProps){
             {isOpen && (
                 <OptionList>
                     <Option onClick={() => updatePokemonTeam('')}>-</Option>
-                    <Option onClick={() => updatePokemonTeam('Pikachu')}>Kanto</Option>
-                    <Option onClick={() => updatePokemonTeam('Charizard')}>Johto</Option>
-                    <Option onClick={() => updatePokemonTeam('Macaco')}>Hoenn</Option>
-                    <Option onClick={() => updatePokemonTeam('Vaca')}>Sinnoh</Option>
+                    { allPokemons && allPokemons.map((pokemon, i) => (
+                        <Option key={i} onClick={() => updatePokemonTeam(pokemon.name)}>{pokemon.name}</Option>
+                    ))}
                 </OptionList>
             )}
         </FormSelect>
