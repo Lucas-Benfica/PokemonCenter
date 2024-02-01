@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormSelect = styled.div<{ open: string }>`
+export const FormSelect = styled.div<{ open: boolean }>`
     position: relative;
     width: 100%;
     height: 45px;
@@ -13,7 +13,7 @@ export const FormSelect = styled.div<{ open: string }>`
     margin-top: 8px;
     
     border: 1px solid var(--border);
-    border-radius: ${(props) => (props.open === "true") ? "8px 8px 0 0" : "8px"};
+    border-radius: ${(props) => (props.open) ? "8px 8px 0 0" : "8px"};
     
     color: var(--inputsform);
     font-size: 14px;
@@ -25,7 +25,7 @@ export const FormSelect = styled.div<{ open: string }>`
         font-weight: 300;
         font-size: 32px;
         color: var(--inputsform);
-        rotate: ${(props) => (props.open === "true") ? "-90deg" : "90deg"};
+        rotate: ${(props) => (props.open) ? "-90deg" : "90deg"};
         transition: rotate 0.3s;
     }
 `;

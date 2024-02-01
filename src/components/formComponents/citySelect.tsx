@@ -23,7 +23,7 @@ export default function CitySelect(props: CitySelectProps) {
     };
 
     return (
-        <FormSelect onClick={toggleOptions} open = {isOpen.toString()}>
+        <FormSelect onClick={toggleOptions} open = {isOpen}>
             {selectedOption ? selectedOption : 'Cidade'}
             <span>{'>'}</span>
             {isOpen && (

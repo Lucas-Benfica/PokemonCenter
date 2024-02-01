@@ -5,7 +5,6 @@ import PokemonSelect from "./pokemonSelect";
 interface TeamRegistrationProps {
     pokemonTeam: { name: string }[];
     SetPokemonTeam: any;
-    //erros: any;
 }
 
 export default function TeamRegistration(props: TeamRegistrationProps) {

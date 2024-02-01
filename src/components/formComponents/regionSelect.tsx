@@ -23,7 +23,7 @@ export default function RegionSelect(props: RegionSelectProps) {
     };
 
     return (
-        <FormSelect onClick={toggleOptions} open = {isOpen.toString()}>
+        <FormSelect onClick={toggleOptions} open = {isOpen}>
             {selectedOption ? selectedOption : 'Região'}
             <span>{'>'}</span>
             {isOpen && (

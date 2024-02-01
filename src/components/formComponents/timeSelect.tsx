@@ -22,7 +22,7 @@ export default function TimeSelect(props: TimeSelectProps){
     };
 
     return (
-        <FormSelect onClick={toggleOptions} open = {isOpen.toString()}>
+        <FormSelect onClick={toggleOptions} open = {isOpen}>
             {selectedOption ? selectedOption : 'Selecione um horário'}
             <span>{'>'}</span>
             {isOpen && (

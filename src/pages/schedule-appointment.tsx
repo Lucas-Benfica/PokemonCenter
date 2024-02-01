@@ -90,7 +90,8 @@ export default function ScheduleAppointment() {
                     </FormColumn>
                 </FormRow>
                 
-                <TeamRegistration pokemonTeam={pokemonTeam} SetPokemonTeam={SetPokemonTeam}/>
+                <TeamRegistration pokemonTeam={pokemonTeam} SetPokemonTeam={SetPokemonTeam} />
+                <ErrorSpan>{errors.pokemons?.message}</ErrorSpan>
 
                 <FormRow>
                     <FormColumn>

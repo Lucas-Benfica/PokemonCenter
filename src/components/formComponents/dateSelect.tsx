@@ -22,7 +22,7 @@ export default function DateSelect(props: DateSelectProps){
     };
 
     return (
-        <FormSelect onClick={toggleOptions} open = {isOpen.toString()}>
+        <FormSelect onClick={toggleOptions} open = {isOpen}>
             {selectedOption ? selectedOption : 'Selecione uma data'}
             <span>{'>'}</span>
             {isOpen && (

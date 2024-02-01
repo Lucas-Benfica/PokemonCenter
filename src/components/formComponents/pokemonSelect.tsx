@@ -26,7 +26,7 @@ export default function PokemonSelect(props: PokemonSelectProps){
 
 
     return (
-        <FormSelect onClick={toggleOptions} open = {isOpen.toString()}>
+        <FormSelect onClick={toggleOptions} open = {isOpen}>
             { pokemonTeam[index].name !== "" ? pokemonTeam[index].name : 'Selecione seu pokémon'}
             <span>{'>'}</span>
             {isOpen && (
