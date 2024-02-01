@@ -61,6 +61,7 @@ const HeaderContainer = styled.header`
     width: 100%;
     position: fixed;
     top: 0;
+    z-index: 10;
 `
 const Logo = styled.a<{ seelogo: string }>`
     width: ${(props) => (props.seelogo === "true") ? "259px" : "62px"};
