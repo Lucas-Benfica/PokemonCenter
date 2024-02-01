@@ -1,31 +1,27 @@
 import { useEffect, useState } from "react";
 import { FormSelect, Option, OptionList } from "./styles";
-import axios, { AxiosResponse } from 'axios';
+import { Dispatch, SetStateAction } from 'react';
+const URL = process.env.NEXT_PUBLIC_API_LINK_1;
 
 interface DateSelectProps {
     setValue: any;
+    setDate: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export default function DateSelect(props: DateSelectProps) {
-    const { setValue } = props;
+    const { setValue, setDate } = props;
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('');
     const [availableDates, setAvailableDates] = useState<string[]>()
 
     useEffect(() => {
-
-        const fetchData = async (): Promise<void> => {
-            try {
-                const response: AxiosResponse = await axios.get('http://localhost:3000/api/scheduling/date');
-                if(response.data) setAvailableDates(response.data);
-                console.log("AQUI CARREGFOU")
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        fetchData();
+        fetch(`${URL}/date`)
+            .then(response => response.json())
+            .then(data => {
+                setAvailableDates(data);
+            })
+            .catch(error => console.error('Error:', error));
     }, []);
 
     function toggleOptions() {
@@ -35,6 +31,7 @@ export default function DateSelect(props: DateSelectProps) {
     function handleOptionClick(value: string) {
         setSelectedOption(value);
         setValue("date", value);
+        setDate(value);
         setIsOpen(false);
     };
 
@@ -45,7 +42,7 @@ export default function DateSelect(props: DateSelectProps) {
             {isOpen && (
                 <OptionList>
                     <Option onClick={() => handleOptionClick('')}>-</Option>
-                    { availableDates && availableDates.map((date, index) => (
+                    {availableDates && availableDates.map((date, index) => (
                         <Option key={index} onClick={() => handleOptionClick(date)}>{date}</Option>
                     ))}
                 </OptionList>
