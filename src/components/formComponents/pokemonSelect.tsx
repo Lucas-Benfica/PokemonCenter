@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 interface PokemonSelectProps {
     index: number;
     pokemonTeam: { name: string }[];
-    SetPokemonTeam:  Dispatch<SetStateAction<{ name: string }[] | undefined>>;
+    SetPokemonTeam:  Dispatch<SetStateAction<{ name: string }[]>>;
     allPokemons: { name: string }[];
     getMorePokemon: () => void;
 }

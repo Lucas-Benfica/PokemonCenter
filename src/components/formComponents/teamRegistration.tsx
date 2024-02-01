@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PokemonSelect from "./pokemonSelect";
+import { Dispatch, SetStateAction } from 'react';
 const URL = process.env.NEXT_PUBLIC_API_LINK_2;
 const MAX_POKEMONS_PER_LOAD = 25;
 
 interface TeamRegistrationProps {
     pokemonTeam: { name: string }[];
-    SetPokemonTeam: any;
+    SetPokemonTeam: Dispatch<SetStateAction<{ name: string }[]>>;
 }
 
 export default function TeamRegistration(props: TeamRegistrationProps) {
