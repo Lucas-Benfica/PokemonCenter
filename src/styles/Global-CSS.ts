@@ -8,6 +8,8 @@ const GlobalCSS = createGlobalStyle`
         --black: #000000;
         --lightblack: #1D1D1D;
         --lightgray: #EEEEEE;
+        --border: #D5D5D5;
+        --inputsform: #747474;
 
         --homeimage: url("/images/pokemon-hero.jpg");
     }
