@@ -41,6 +41,7 @@ export default function ScheduleAppointment() {
 
     const [pokemonTeam, SetPokemonTeam] = useState<{ name: string}[]>([{name: ''}, {name: ''}]);
     const [date, setDate] = useState<string>();
+    const [region, setRegion] = useState<string>();
 
 
     let posis = [{name: "sjksjlks"}]
@@ -82,12 +83,12 @@ export default function ScheduleAppointment() {
                 <FormRow>
                     <FormColumn>
                         <FormLabel htmlFor="region">Região</FormLabel>
-                        <RegionSelect setValue={setValue} />
+                        <RegionSelect setValue={setValue} setRegion={setRegion} />
                         <ErrorSpan>{errors.region?.message}</ErrorSpan>
                     </FormColumn>
                     <FormColumn>
                         <FormLabel htmlFor="city">Cidade</FormLabel>
-                        <CitySelect setValue={setValue} />
+                        <CitySelect setValue={setValue} region={region} />
                         <ErrorSpan>{errors.city?.message}</ErrorSpan>
                     </FormColumn>
                 </FormRow>

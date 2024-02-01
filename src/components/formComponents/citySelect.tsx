@@ -3,6 +3,7 @@ import { FormSelect, OptionList, Option } from "./styles";
 
 interface CitySelectProps {
     setValue: any;
+    region: string | undefined;
 }
 
 export default function CitySelect(props: CitySelectProps) {
