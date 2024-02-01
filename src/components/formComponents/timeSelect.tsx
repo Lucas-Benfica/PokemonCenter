@@ -1,38 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormSelect, Option, OptionList } from "./styles";
+import axios, { AxiosResponse } from 'axios';
+const URL = process.env.NEXT_PUBLIC_API_LINK_1;
 
 interface TimeSelectProps {
     setValue: any;
+    date: string | undefined;
 }
 
-export default function TimeSelect(props: TimeSelectProps){
-    const { setValue } = props;
+export default function TimeSelect(props: TimeSelectProps) {
+    const { setValue, date } = props;
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('');
+    const [availableTimes, setAvailableTimes] = useState<string[]>();
 
-    function toggleOptions(){
+    useEffect(() => {
+        if(!date) return
+        fetch(`${URL}/time`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date: date
+            })
+        })
+            .then(response => response.json())
+            .then(data => setAvailableTimes(data))
+            .catch(error => console.error('Erro:', error));
+    }, [date]);
+
+
+    function toggleOptions() {
         setIsOpen(!isOpen);
     };
 
-    function handleOptionClick(value: string){
+    function handleOptionClick(value: string) {
         setSelectedOption(value);
         setValue("time", value);
         setIsOpen(false);
     };
 
     return (
-        <FormSelect onClick={toggleOptions} open = {isOpen}>
+        <FormSelect onClick={toggleOptions} open={isOpen}>
             {selectedOption ? selectedOption : 'Selecione um horário'}
             <span>{'>'}</span>
             {isOpen && (
                 <OptionList>
                     <Option onClick={() => handleOptionClick('')}>-</Option>
-                    <Option onClick={() => handleOptionClick('Johto')}>Johto</Option>
-                    <Option onClick={() => handleOptionClick('Hoenn')}>Hoenn</Option>
-                    <Option onClick={() => handleOptionClick('Sinnoh')}>Sinnoh</Option>
-                    <Option onClick={() => handleOptionClick('Kanto')}>Kanto</Option>
-                    <Option onClick={() => handleOptionClick('Johto')}>Johto</Option>
+                    {availableTimes && availableTimes.map((time, index) => (
+                        <Option key={index} onClick={() => handleOptionClick(time)}>{time}</Option>
+                    ))}
                 </OptionList>
             )}
         </FormSelect>
