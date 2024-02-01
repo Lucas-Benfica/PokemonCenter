@@ -53,6 +53,6 @@ export const Option = styled.div`
     color: var(--inputsform);
 
     &:hover {
-        font-size: 15px;
+        color: var(--red);
     }
 `;

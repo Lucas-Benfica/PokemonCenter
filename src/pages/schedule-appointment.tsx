@@ -30,7 +30,7 @@ const formSchema = yup.object().shape({
             name: yup.string().required(),
         })
     ),
-    date: yup.string().required(), //date
+    date: yup.date().required(), //date
     time: yup.string().required(),   
 });
 
@@ -43,7 +43,7 @@ export default function ScheduleAppointment() {
 
     let posis = [{name: "sjksjlks"}]
 
-    const onSubmitForm = (data: any) => {
+    function onSubmitForm(data: any){
         //setValue("pokemons", pokemonTeam);
         console.log(data);
     };
