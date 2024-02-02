@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FormSelect, Option, OptionList } from "./styles";
 import { Dispatch, SetStateAction } from 'react';
-const URL = process.env.NEXT_PUBLIC_API_LINK_1;
 
 interface DateSelectProps {
     setValue: any;
@@ -16,7 +15,7 @@ export default function DateSelect(props: DateSelectProps) {
     const [availableDates, setAvailableDates] = useState<string[]>()
 
     useEffect(() => {
-        fetch(`${URL}/date`)
+        fetch(`/api/scheduling/date`)
             .then(response => response.json())
             .then(data => {
                 setAvailableDates(data);

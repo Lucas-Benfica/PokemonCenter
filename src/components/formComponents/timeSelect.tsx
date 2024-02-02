@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { FormSelect, Option, OptionList } from "./styles";
-import axios, { AxiosResponse } from 'axios';
-const URL = process.env.NEXT_PUBLIC_API_LINK_1;
 
 interface TimeSelectProps {
     setValue: any;
@@ -17,7 +15,7 @@ export default function TimeSelect(props: TimeSelectProps) {
 
     useEffect(() => {
         if(!date) return
-        fetch(`${URL}/time`, {
+        fetch(`/api/scheduling/time`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
