@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PokemonSelect from "./pokemonSelect";
 import { Dispatch, SetStateAction } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const URL = process.env.NEXT_PUBLIC_API_LINK_2;
 const MAX_POKEMONS_PER_LOAD = 25;
 
@@ -26,19 +28,31 @@ export default function TeamRegistration(props: TeamRegistrationProps) {
     function getPokemon(url: string): void {
         if(loading) return;
         setLoading(true);
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const newPokemons = data.results.map((pokemon: { name: string }) => ({ name: pokemon.name }));
-                const updatedTeam = [...allPokemons, ...newPokemons];
-                setAllPokemons(updatedTeam);
-                setNextUrl(data.next);
+        const fetchData = async () => {
+            try {
+                await toast.promise(
+                    fetch(url),
+                    {
+                        pending: `Searching for Pokemons...`,
+                        success: `Pokemons fetched successfully!`,
+                        error: `Failed to fetch Pokemons!`
+                    }
+                )
+                .then(response => response.json())
+                .then(data => {
+                    const newPokemons = data.results.map((pokemon: { name: string }) => ({ name: pokemon.name }));
+                    const updatedTeam = [...allPokemons, ...newPokemons];
+                    setAllPokemons(updatedTeam);
+                    setNextUrl(data.next);
+                    setLoading(false);
+                })
+
+            } catch (error) {
+                console.error('Erro:', error);
                 setLoading(false);
-            })
-            .catch(error => {
-                console.error('Erro ao carregar mais Pokémon:', error);
-                setLoading(false);
-            });
+            }
+        };
+        fetchData();
     }
     function getMorePokemon(): void {
         if(allPokemons.length !== 0 && nextUrl){
