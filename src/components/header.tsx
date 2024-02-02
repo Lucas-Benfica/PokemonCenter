@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 interface HeaderProps {}
 
 export default function Header(props: HeaderProps) {
@@ -63,7 +63,7 @@ const HeaderContainer = styled.header`
     top: 0;
     z-index: 10;
 `
-const Logo = styled.a<{ seelogo: string }>`
+const Logo = styled(Link)<{ seelogo: string }>`
     width: ${(props) => (props.seelogo === "true") ? "259px" : "62px"};
     height: 62px;
     border-radius: 50px;
