@@ -45,7 +45,7 @@ export default function ScheduleAppointment() {
     const [pokemonTeam, SetPokemonTeam] = useState<{ name: string }[]>([{ name: '' }, { name: '' }]);
     const [date, setDate] = useState<string>();
     const [region, setRegion] = useState<string>();
-    const [totalCost, setTotalCost] = useState<number>(0)
+    const [totalCost, setTotalCost] = useState<number>(0);
 
     useEffect(() => {
         const pokemons = pokemonTeam.filter(poke => poke.name);
@@ -187,10 +187,14 @@ const TitleForm = styled.h1`
     margin: 32px auto;
 `
 const Form = styled.form`
-    width: 550px;
+    width: 100%;
+    max-width: 550px;
     display: flex;
     flex-direction: column;
     margin: 0 auto 30px;
+    @media (max-width: 550px) {
+        padding: 10px;
+    }
 `
 const FormRow = styled.div`
   display: flex;
@@ -206,7 +210,8 @@ const FormLabel = styled.label`
     color: var(--lightblack);
 `;
 const FormInput = styled.input`
-    width: 265px;
+    width: 100%;
+    max-width: 265px;
     height: 45px;
     padding: 13px 14px;
     margin-top: 8px;
@@ -253,4 +258,13 @@ const Conclusion = styled.div`
         border: none;
     }
 
+    @media (max-width: 500px) {
+        h1{
+            font-size: 18px;
+        }
+        button{
+            width: 150px;
+            font-size: 12px;
+        }
+    }
 `

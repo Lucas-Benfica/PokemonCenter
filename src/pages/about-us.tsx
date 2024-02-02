@@ -34,11 +34,13 @@ const AboutUsDiv = styled.div`
     flex-direction: column;
 `
 const BodyText = styled.div`
-    width: 408px;
+    width: 100%;
+    max-width: 408px;
     height: auto;
     min-height: 100%;
     margin: 34px auto 72px;
     color: var(--black);
+    text-align: justify;
 
     h1 {
         font-size: 18px;
@@ -51,5 +53,8 @@ const BodyText = styled.div`
         font-weight: 500;
         line-height: 1.5;
         margin-bottom: 10px;
+    }
+    @media (max-width: 500px) {
+        padding: 0 10px;
     }
 `;

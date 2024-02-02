@@ -147,4 +147,9 @@ const BudgetDiv = styled.div`
         font-weight: 400;
         font-size: 8px;
     }
+    @media (max-width: 500px) {
+        p{
+            font-size: 10px;
+        }
+    }
 `

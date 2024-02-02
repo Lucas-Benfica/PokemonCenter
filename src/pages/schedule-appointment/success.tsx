@@ -27,7 +27,8 @@ export default function Success(props: successProps) {
 }
 
 export const ResultDiv = styled.div`
-    width: 408px;
+    width: 90%;
+    max-width: 408px;
     height: 255px;
     margin: 257px auto;
     border-radius: 8px;
@@ -46,7 +47,7 @@ export const ResultDiv = styled.div`
     }
 
     p{
-        width: 350px;
+        max-width: 350px;
         font-weight: 400;
         font-size: 14px;
         text-align: center;
@@ -66,5 +67,14 @@ export const ResultDiv = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    @media (max-width: 500px) {
+        margin: 200px auto;
+        h1{
+            font-size: 18px;
+        }
+    }
+    @media (max-width: 400px) {
+        margin: 200px auto;
     }
 `

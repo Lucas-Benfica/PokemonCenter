@@ -22,4 +22,7 @@ const FooterContainer = styled.footer`
     font-weight: 400;
     line-height: 17px;
     margin-top: auto;
+    @media (max-width: 400px) {
+        font-size: 12px;
+    }
 `
