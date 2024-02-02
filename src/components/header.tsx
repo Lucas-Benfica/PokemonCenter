@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Link from "next/link";
-interface HeaderProps {}
+interface HeaderProps { }
 
 export default function Header(props: HeaderProps) {
     const [seeLogo, setSeeLogo] = useState<boolean>(true);
@@ -15,23 +15,23 @@ export default function Header(props: HeaderProps) {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleMouseEnter = () => {
+    function handleMouseEnter() {
         clearTimeout(timer);
         setTimeout(() => setSeeLogo(true), 700);
     };
-    const handleMouseLeave = () => {
+    function handleMouseLeave() {
         clearTimeout(timer);
         setSeeLogo(false);
     };
 
-    const goToScheduleAppointment = () => {
+    function goToScheduleAppointment() {
         router.push('/schedule-appointment');
     }
 
     return (
         <HeaderContainer>
             <Logo
-                href="/"            
+                href="/"
                 seelogo={seeLogo.toString()}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -63,7 +63,7 @@ const HeaderContainer = styled.header`
     top: 0;
     z-index: 10;
 `
-const Logo = styled(Link)<{ seelogo: string }>`
+const Logo = styled(Link) <{ seelogo: string }>`
     width: ${(props) => (props.seelogo === "true") ? "259px" : "62px"};
     height: 62px;
     border-radius: 50px;
@@ -96,8 +96,20 @@ const Logo = styled(Link)<{ seelogo: string }>`
         justify-content: space-between;
         padding-right: 28px;
     }
-
     transition: width 1s;
+
+    @media (max-width: 500px) {
+        width: 62px;
+
+        h1 {
+            opacity: 0;
+        }
+        &:hover {
+            cursor: pointer;
+            width: 62px;
+            justify-content: space-between;
+        }
+    }
 `;
 const OptionsHeader = styled.div`
     display: flex;
@@ -120,5 +132,7 @@ const OptionsHeader = styled.div`
         cursor: pointer;
         border: none;
     }
-
+    @media (max-width: 500px) {
+        gap: 20px;
+    }
 `
