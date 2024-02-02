@@ -4,7 +4,7 @@ import PokemonSelect from "./pokemonSelect";
 import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const URL = process.env.NEXT_PUBLIC_API_LINK_2;
+const URL = process.env.NEXT_PUBLIC_API_LINK;
 const MAX_POKEMONS_PER_LOAD = 25;
 
 interface TeamRegistrationProps {

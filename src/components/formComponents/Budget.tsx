@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-const URL = process.env.NEXT_PUBLIC_API_LINK_2;
+const URL = process.env.NEXT_PUBLIC_API_LINK;
 
 const romanNumerals: any = {
     'i': 1,

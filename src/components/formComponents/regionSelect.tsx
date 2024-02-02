@@ -3,7 +3,7 @@ import { FormSelect, OptionList, Option } from "./styles";
 import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const URL = process.env.NEXT_PUBLIC_API_LINK_2;
+const URL = process.env.NEXT_PUBLIC_API_LINK;
 
 interface RegionSelectProps {
     setValue: any;
