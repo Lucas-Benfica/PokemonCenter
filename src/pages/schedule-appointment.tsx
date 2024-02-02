@@ -3,12 +3,13 @@ import SecondHeader from "../components/secondHeader"
 import * as yup from "yup";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RegionSelect from "../components/formComponents/regionSelect";
 import CitySelect from "../components/formComponents/citySelect";
 import TeamRegistration from "../components/formComponents/teamRegistration";
 import DateSelect from "../components/formComponents/dateSelect";
 import TimeSelect from "../components/formComponents/timeSelect";
+import Budget from "../components/formComponents/Budget";
 
 interface FormValues {
     name: string;
@@ -42,12 +43,15 @@ export default function ScheduleAppointment() {
     const [pokemonTeam, SetPokemonTeam] = useState<{ name: string}[]>([{name: ''}, {name: ''}]);
     const [date, setDate] = useState<string>();
     const [region, setRegion] = useState<string>();
+    const [totalCost, setTotalCost] = useState<number>(0)
 
-
-    let posis = [{name: "sjksjlks"}]
+    useEffect(()=>{
+        const pokemons = pokemonTeam.filter(poke => poke.name);
+        setValue("pokemons", pokemons);
+    },[pokemonTeam]);
 
     function onSubmitForm(data: any){
-        //setValue("pokemons", pokemonTeam);
+        
         console.log(data);
     };
 
@@ -111,28 +115,10 @@ export default function ScheduleAppointment() {
 
                 <DividingLine />
 
-                <Budget>
-                    <div>
-                        <h1>Número de pokémons a serem atendidos:</h1>
-                        <h2>01</h2>
-                    </div>
-                    <div>
-                        <h1>Atendimento unitário por pokémon:</h1>
-                        <h2>R$ 70,00</h2>
-                    </div>
-                    <div>
-                        <h1>Subtotal:</h1>
-                        <h2>R$ 70,00</h2>
-                    </div>
-                    <div>
-                        <h1>Taxa geracional*: </h1>
-                        <h2>R$ 2,10</h2>
-                    </div>
-                    <p>*adicionamos uma taxa de 3%, multiplicado pelo número da geração mais alta do time, com limite de até 30%</p>
-                </Budget>
+                <Budget pokemonTeam={pokemonTeam} setTotalCost={setTotalCost} />
 
                 <Conclusion>
-                    <h1>Valor Total: R$ 72,10</h1>
+                    <h1>Valor Total: R$ {totalCost.toFixed(2)}</h1>
                     <button type="submit">Concluir Agendamento</button>
                 </Conclusion>
 
@@ -194,25 +180,6 @@ const DividingLine = styled.div`
     height: 1px;
     background-color: var(--border);
     margin-bottom: 32px;
-`
-const Budget = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    color: var(--inputsform);
-    margin-bottom: 32px;
-    div{
-        display: flex;
-        justify-content: space-between;        
-    }
-    h1, h2{
-        font-size: 14px;
-        font-weight: 400;
-    }
-    p{
-        font-weight: 400;
-        font-size: 8px;
-    }
 `
 const Conclusion = styled.div`
     display: flex;
