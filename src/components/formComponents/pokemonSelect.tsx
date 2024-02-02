@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormSelect, Option, OptionList } from "./styles";
 import { Dispatch, SetStateAction } from 'react';
 
@@ -27,6 +27,22 @@ export default function PokemonSelect(props: PokemonSelectProps){
         setIsOpen(!isOpen);
     };
 
+    useEffect(()=>{
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    getMorePokemon();
+                }
+            });
+        });
+        const observerTarget = document.querySelector('#observer');
+        if (observerTarget instanceof Element) {
+            intersectionObserver.observe(observerTarget);
+        }
+        
+        return () => intersectionObserver.disconnect();
+    })
+
 
     return (
         <FormSelect onClick={toggleOptions} open = {isOpen}>
@@ -38,6 +54,7 @@ export default function PokemonSelect(props: PokemonSelectProps){
                     { allPokemons && allPokemons.map((pokemon, i) => (
                         <Option key={i} onClick={() => updatePokemonTeam(pokemon.name)}>{pokemon.name}</Option>
                     ))}
+                    <Option id={"observer"}></Option>
                 </OptionList>
             )}
         </FormSelect>
