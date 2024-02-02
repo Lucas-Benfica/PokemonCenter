@@ -40,9 +40,9 @@ export default function Header(props: HeaderProps) {
                 <h1>Centro Pokémon</h1>
             </Logo>
             <OptionsHeader>
-                <a href="/about-us">
+                <Link href="/about-us">
                     Quem Somos
-                </a>
+                </Link>
                 <button onClick={goToScheduleAppointment}>
                     Agendar Consulta
                 </button>
