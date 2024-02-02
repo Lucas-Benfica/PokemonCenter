@@ -11,6 +11,7 @@ import DateSelect from "../../components/formComponents/dateSelect";
 import TimeSelect from "../../components/formComponents/timeSelect";
 import Budget from "../../components/formComponents/Budget";
 import { useRouter } from 'next/router';
+import { ToastContainer } from 'react-toastify';
 
 interface FormValues {
     name: string;
@@ -153,6 +154,19 @@ export default function ScheduleAppointment() {
                     <button type="submit">Concluir Agendamento</button>
                 </Conclusion>
 
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    limit={3}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </Form>
         </FormContainer >
     )
