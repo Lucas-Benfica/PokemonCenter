@@ -29,9 +29,55 @@ export default function Budget(props: BudgetProps) {
     const [generationalTax, setGenerationalTax] = useState<number>(0)
     const value = 70.0;
 
-
     function extractRomanNumeral(generation: string): string {
         return generation.split('-').pop() || '';
+    }
+    function getPokemonGeneration(pokemon: string): number {
+        let generationDecimal = 0;
+        if(!pokemon) return generationDecimal;
+        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+        .then(response => response.json())
+        .then(data => {
+            // Aqui, data conterá informações sobre o Pokémon Pikachu
+            const speciesUrl = data.species.url;
+            
+            // Fazer uma nova requisição para obter os detalhes da espécie do Pokémon
+            return fetch(speciesUrl);
+        })
+        .then(response => response.json())
+        .then(speciesData => {
+            // Aqui, speciesData conterá informações sobre a espécie do Pokémon
+            const generationUrl = speciesData.generation.url;
+            
+            // Fazer uma nova requisição para obter os detalhes da geração do Pokémon
+            return fetch(generationUrl);
+        })
+        .then(response => response.json())
+        .then(generationData => {
+            // Aqui, generationData conterá informações sobre a geração do Pokémon
+            const roman = extractRomanNumeral(generationData.name);
+            generationDecimal = romanNumerals[roman];
+        })
+        .catch(error => console.error('Erro:', error));
+        // Retorna o numero da geração do Pokémon
+        return generationDecimal;
+    }
+    function calcSubTotal() {
+        const totalSub = pokemonsArray.length * value
+        setSubTotal(totalSub);
+        calcGenerationalTax(totalSub);
+    }
+    function calcGenerationalTax(totalSub: number) {
+        const percentual = maxGeneration * 0.03;
+        let tax = 0;
+        if (percentual > 0.3){
+            tax = 0.3 * totalSub;
+        }
+        else {
+            tax = percentual * totalSub;
+        }
+        setGenerationalTax(tax);
+        setTotalCost(totalSub + tax);
     }
 
     useEffect(() => {
@@ -55,57 +101,11 @@ export default function Budget(props: BudgetProps) {
         }));
 
     }, [pokemonTeam]);
+
     useEffect(() => {
         calcSubTotal();
     }, [pokemonsArray]);
 
-    function getPokemonGeneration(pokemon: string): number {
-        let generationDecimal = 0;
-        if(!pokemon) return generationDecimal;
-        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-            .then(response => response.json())
-            .then(data => {
-                // Aqui, data conterá informações sobre o Pokémon Pikachu
-                const speciesUrl = data.species.url;
-
-                // Fazer uma nova requisição para obter os detalhes da espécie do Pokémon
-                return fetch(speciesUrl);
-            })
-            .then(response => response.json())
-            .then(speciesData => {
-                // Aqui, speciesData conterá informações sobre a espécie do Pokémon
-                const generationUrl = speciesData.generation.url;
-
-                // Fazer uma nova requisição para obter os detalhes da geração do Pokémon
-                return fetch(generationUrl);
-            })
-            .then(response => response.json())
-            .then(generationData => {
-                // Aqui, generationData conterá informações sobre a geração do Pokémon
-                const roman = extractRomanNumeral(generationData.name);
-                generationDecimal = romanNumerals[roman];
-            })
-            .catch(error => console.error('Erro:', error));
-        // Retorna o numero da geração do Pokémon
-        return generationDecimal;
-    }
-    function calcSubTotal() {
-        const totalSub = pokemonsArray.length * value
-        setSubTotal(totalSub);
-        calcGenerationalTax(totalSub);
-    }
-    function calcGenerationalTax(totalSub: number) {
-        const percentual = maxGeneration * 0.03;
-        let tax = 0;
-        if (percentual > 0.3){
-            tax = 0.3 * totalSub;
-        }
-        else {
-            tax = percentual * totalSub;
-        }
-        setGenerationalTax(tax);
-        setTotalCost(totalSub + tax);
-    }
     return (
         <BudgetDiv>
             <div>
