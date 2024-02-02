@@ -1,15 +1,16 @@
 import styled from "styled-components"
-import SecondHeader from "../components/secondHeader"
+import SecondHeader from "../../components/secondHeader"
 import * as yup from "yup";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-import RegionSelect from "../components/formComponents/regionSelect";
-import CitySelect from "../components/formComponents/citySelect";
-import TeamRegistration from "../components/formComponents/teamRegistration";
-import DateSelect from "../components/formComponents/dateSelect";
-import TimeSelect from "../components/formComponents/timeSelect";
-import Budget from "../components/formComponents/Budget";
+import RegionSelect from "../../components/formComponents/regionSelect";
+import CitySelect from "../../components/formComponents/citySelect";
+import TeamRegistration from "../../components/formComponents/teamRegistration";
+import DateSelect from "../../components/formComponents/dateSelect";
+import TimeSelect from "../../components/formComponents/timeSelect";
+import Budget from "../../components/formComponents/Budget";
+import { useRouter } from 'next/router';
 
 interface FormValues {
     name: string;
@@ -31,8 +32,8 @@ const formSchema = yup.object().shape({
             name: yup.string().required(),
         })
     ),
-    date: yup.date().required(), //date
-    time: yup.string().required(),   
+    date: yup.string().required(),
+    time: yup.string().required(),
 });
 
 export default function ScheduleAppointment() {
@@ -40,19 +41,49 @@ export default function ScheduleAppointment() {
         resolver: yupResolver(formSchema),
     });
 
-    const [pokemonTeam, SetPokemonTeam] = useState<{ name: string}[]>([{name: ''}, {name: ''}]);
+    const [pokemonTeam, SetPokemonTeam] = useState<{ name: string }[]>([{ name: '' }, { name: '' }]);
     const [date, setDate] = useState<string>();
     const [region, setRegion] = useState<string>();
     const [totalCost, setTotalCost] = useState<number>(0)
 
-    useEffect(()=>{
+    useEffect(() => {
         const pokemons = pokemonTeam.filter(poke => poke.name);
         setValue("pokemons", pokemons);
-    },[pokemonTeam]);
+    }, [pokemonTeam]);
 
-    function onSubmitForm(data: any){
-        
-        console.log(data);
+    const router = useRouter();
+
+    async function onSubmitForm(data: FormValues | any) {
+        try {
+            console.log(data);
+            if (data.pokemons.length === 0) {
+                return await router.push({
+                    pathname: '/schedule-appointment/failure',
+                    query: {
+                        amount: data.pokemons.length,
+                    }
+                })
+            }
+
+            await router.push({
+                pathname: '/schedule-appointment/success',
+                query: {
+                    date: data.date,
+                    time: data.time,
+                    amount: data.pokemons.length,
+                }
+            })
+        } catch (error) {
+            console.error('Error: ', error);
+
+            await router.push({
+                pathname: '/schedule-appointment/failure',
+                query: {
+                    message: "Ocorreu um erro durante o envio do formulário.",
+                }
+            })
+        }
+
     };
 
     return (
@@ -96,7 +127,7 @@ export default function ScheduleAppointment() {
                         <ErrorSpan>{errors.city?.message}</ErrorSpan>
                     </FormColumn>
                 </FormRow>
-                
+
                 <TeamRegistration pokemonTeam={pokemonTeam} SetPokemonTeam={SetPokemonTeam} />
                 <ErrorSpan>{errors.pokemons?.message}</ErrorSpan>
 
@@ -127,7 +158,7 @@ export default function ScheduleAppointment() {
     )
 }
 
-const FormContainer = styled.div`
+export const FormContainer = styled.div`
     width: 100%;
     min-height: calc(100vh - 104px - 72px);
     display: flex;

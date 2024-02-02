@@ -10,6 +10,7 @@ const GlobalCSS = createGlobalStyle`
         --lightgray: #EEEEEE;
         --border: #D5D5D5;
         --inputsform: #747474;
+        --result: #DF8686;
 
         --homeimage: url("/images/pokemon-hero.jpg");
     }
